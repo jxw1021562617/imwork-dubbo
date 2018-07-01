@@ -1,0 +1,560 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.imwork.mapper.SysUserMapper">
+  <resultMap id="BaseResultMap" type="top.imwork.entity.SysUser">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="user_name_spell" jdbcType="VARCHAR" property="userNameSpell" />
+    <result column="user_address" jdbcType="VARCHAR" property="userAddress" />
+    <result column="user_desc" jdbcType="VARCHAR" property="userDesc" />
+    <result column="user_email" jdbcType="VARCHAR" property="userEmail" />
+    <result column="user_mobil_phone" jdbcType="VARCHAR" property="userMobilPhone" />
+    <result column="user_type" jdbcType="INTEGER" property="userType" />
+    <result column="user_status" jdbcType="INTEGER" property="userStatus" />
+    <result column="user_id_card" jdbcType="VARCHAR" property="userIdCard" />
+    <result column="user_avatar" jdbcType="VARCHAR" property="userAvatar" />
+    <result column="salt" jdbcType="VARCHAR" property="salt" />
+    <result column="dncnet" jdbcType="INTEGER" property="dncnet" />
+    <result column="org_tree_id" jdbcType="INTEGER" property="orgTreeId" />
+    <result column="org_tree_name" jdbcType="VARCHAR" property="orgTreeName" />
+    <result column="area_id" jdbcType="INTEGER" property="areaId" />
+    <result column="employee_id" jdbcType="VARCHAR" property="employeeId" />
+    <result column="login_name" jdbcType="VARCHAR" property="loginName" />
+    <result column="login_password" jdbcType="VARCHAR" property="loginPassword" />
+    <result column="error_times" jdbcType="INTEGER" property="errorTimes" />
+    <result column="loginerror_times" jdbcType="INTEGER" property="loginerrorTimes" />
+    <result column="sorts" jdbcType="INTEGER" property="sorts" />
+    <result column="is_different_ip_login" jdbcType="VARCHAR" property="isDifferentIpLogin" />
+    <result column="last_login_time" jdbcType="TIMESTAMP" property="lastLoginTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="last_modified" jdbcType="TIMESTAMP" property="lastModified" />
+    <result column="comment" jdbcType="VARCHAR" property="comment" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, user_name, user_name_spell, user_address, user_desc, user_email, user_mobil_phone, 
+    user_type, user_status, user_id_card, user_avatar, salt, dncnet, org_tree_id, org_tree_name, 
+    area_id, employee_id, login_name, login_password, error_times, loginerror_times, 
+    sorts, is_different_ip_login, last_login_time, create_time, last_modified, comment
+  </sql>
+  <select id="selectByExample" parameterType="top.imwork.entity.SysUserExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_user
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sys_user
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="top.imwork.entity.SysUserExample">
+    delete from sys_user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="top.imwork.entity.SysUser">
+    insert into sys_user (id, user_name, user_name_spell, 
+      user_address, user_desc, user_email, 
+      user_mobil_phone, user_type, user_status, 
+      user_id_card, user_avatar, salt, 
+      dncnet, org_tree_id, org_tree_name, 
+      area_id, employee_id, login_name, 
+      login_password, error_times, loginerror_times, 
+      sorts, is_different_ip_login, last_login_time, 
+      create_time, last_modified, comment
+      )
+    values (#{id,jdbcType=BIGINT}, #{userName,jdbcType=VARCHAR}, #{userNameSpell,jdbcType=VARCHAR}, 
+      #{userAddress,jdbcType=VARCHAR}, #{userDesc,jdbcType=VARCHAR}, #{userEmail,jdbcType=VARCHAR}, 
+      #{userMobilPhone,jdbcType=VARCHAR}, #{userType,jdbcType=INTEGER}, #{userStatus,jdbcType=INTEGER}, 
+      #{userIdCard,jdbcType=VARCHAR}, #{userAvatar,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR}, 
+      #{dncnet,jdbcType=INTEGER}, #{orgTreeId,jdbcType=INTEGER}, #{orgTreeName,jdbcType=VARCHAR}, 
+      #{areaId,jdbcType=INTEGER}, #{employeeId,jdbcType=VARCHAR}, #{loginName,jdbcType=VARCHAR}, 
+      #{loginPassword,jdbcType=VARCHAR}, #{errorTimes,jdbcType=INTEGER}, #{loginerrorTimes,jdbcType=INTEGER}, 
+      #{sorts,jdbcType=INTEGER}, #{isDifferentIpLogin,jdbcType=VARCHAR}, #{lastLoginTime,jdbcType=TIMESTAMP}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{lastModified,jdbcType=TIMESTAMP}, #{comment,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="top.imwork.entity.SysUser">
+    insert into sys_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="userNameSpell != null">
+        user_name_spell,
+      </if>
+      <if test="userAddress != null">
+        user_address,
+      </if>
+      <if test="userDesc != null">
+        user_desc,
+      </if>
+      <if test="userEmail != null">
+        user_email,
+      </if>
+      <if test="userMobilPhone != null">
+        user_mobil_phone,
+      </if>
+      <if test="userType != null">
+        user_type,
+      </if>
+      <if test="userStatus != null">
+        user_status,
+      </if>
+      <if test="userIdCard != null">
+        user_id_card,
+      </if>
+      <if test="userAvatar != null">
+        user_avatar,
+      </if>
+      <if test="salt != null">
+        salt,
+      </if>
+      <if test="dncnet != null">
+        dncnet,
+      </if>
+      <if test="orgTreeId != null">
+        org_tree_id,
+      </if>
+      <if test="orgTreeName != null">
+        org_tree_name,
+      </if>
+      <if test="areaId != null">
+        area_id,
+      </if>
+      <if test="employeeId != null">
+        employee_id,
+      </if>
+      <if test="loginName != null">
+        login_name,
+      </if>
+      <if test="loginPassword != null">
+        login_password,
+      </if>
+      <if test="errorTimes != null">
+        error_times,
+      </if>
+      <if test="loginerrorTimes != null">
+        loginerror_times,
+      </if>
+      <if test="sorts != null">
+        sorts,
+      </if>
+      <if test="isDifferentIpLogin != null">
+        is_different_ip_login,
+      </if>
+      <if test="lastLoginTime != null">
+        last_login_time,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="lastModified != null">
+        last_modified,
+      </if>
+      <if test="comment != null">
+        comment,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userNameSpell != null">
+        #{userNameSpell,jdbcType=VARCHAR},
+      </if>
+      <if test="userAddress != null">
+        #{userAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="userDesc != null">
+        #{userDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="userEmail != null">
+        #{userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="userMobilPhone != null">
+        #{userMobilPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="userType != null">
+        #{userType,jdbcType=INTEGER},
+      </if>
+      <if test="userStatus != null">
+        #{userStatus,jdbcType=INTEGER},
+      </if>
+      <if test="userIdCard != null">
+        #{userIdCard,jdbcType=VARCHAR},
+      </if>
+      <if test="userAvatar != null">
+        #{userAvatar,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null">
+        #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="dncnet != null">
+        #{dncnet,jdbcType=INTEGER},
+      </if>
+      <if test="orgTreeId != null">
+        #{orgTreeId,jdbcType=INTEGER},
+      </if>
+      <if test="orgTreeName != null">
+        #{orgTreeName,jdbcType=VARCHAR},
+      </if>
+      <if test="areaId != null">
+        #{areaId,jdbcType=INTEGER},
+      </if>
+      <if test="employeeId != null">
+        #{employeeId,jdbcType=VARCHAR},
+      </if>
+      <if test="loginName != null">
+        #{loginName,jdbcType=VARCHAR},
+      </if>
+      <if test="loginPassword != null">
+        #{loginPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="errorTimes != null">
+        #{errorTimes,jdbcType=INTEGER},
+      </if>
+      <if test="loginerrorTimes != null">
+        #{loginerrorTimes,jdbcType=INTEGER},
+      </if>
+      <if test="sorts != null">
+        #{sorts,jdbcType=INTEGER},
+      </if>
+      <if test="isDifferentIpLogin != null">
+        #{isDifferentIpLogin,jdbcType=VARCHAR},
+      </if>
+      <if test="lastLoginTime != null">
+        #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModified != null">
+        #{lastModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="comment != null">
+        #{comment,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="top.imwork.entity.SysUserExample" resultType="java.lang.Long">
+    select count(*) from sys_user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update sys_user
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.userName != null">
+        user_name = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userNameSpell != null">
+        user_name_spell = #{record.userNameSpell,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userAddress != null">
+        user_address = #{record.userAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userDesc != null">
+        user_desc = #{record.userDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userEmail != null">
+        user_email = #{record.userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userMobilPhone != null">
+        user_mobil_phone = #{record.userMobilPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userType != null">
+        user_type = #{record.userType,jdbcType=INTEGER},
+      </if>
+      <if test="record.userStatus != null">
+        user_status = #{record.userStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.userIdCard != null">
+        user_id_card = #{record.userIdCard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userAvatar != null">
+        user_avatar = #{record.userAvatar,jdbcType=VARCHAR},
+      </if>
+      <if test="record.salt != null">
+        salt = #{record.salt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dncnet != null">
+        dncnet = #{record.dncnet,jdbcType=INTEGER},
+      </if>
+      <if test="record.orgTreeId != null">
+        org_tree_id = #{record.orgTreeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.orgTreeName != null">
+        org_tree_name = #{record.orgTreeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.areaId != null">
+        area_id = #{record.areaId,jdbcType=INTEGER},
+      </if>
+      <if test="record.employeeId != null">
+        employee_id = #{record.employeeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loginName != null">
+        login_name = #{record.loginName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loginPassword != null">
+        login_password = #{record.loginPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.errorTimes != null">
+        error_times = #{record.errorTimes,jdbcType=INTEGER},
+      </if>
+      <if test="record.loginerrorTimes != null">
+        loginerror_times = #{record.loginerrorTimes,jdbcType=INTEGER},
+      </if>
+      <if test="record.sorts != null">
+        sorts = #{record.sorts,jdbcType=INTEGER},
+      </if>
+      <if test="record.isDifferentIpLogin != null">
+        is_different_ip_login = #{record.isDifferentIpLogin,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastLoginTime != null">
+        last_login_time = #{record.lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastModified != null">
+        last_modified = #{record.lastModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.comment != null">
+        comment = #{record.comment,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update sys_user
+    set id = #{record.id,jdbcType=BIGINT},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      user_name_spell = #{record.userNameSpell,jdbcType=VARCHAR},
+      user_address = #{record.userAddress,jdbcType=VARCHAR},
+      user_desc = #{record.userDesc,jdbcType=VARCHAR},
+      user_email = #{record.userEmail,jdbcType=VARCHAR},
+      user_mobil_phone = #{record.userMobilPhone,jdbcType=VARCHAR},
+      user_type = #{record.userType,jdbcType=INTEGER},
+      user_status = #{record.userStatus,jdbcType=INTEGER},
+      user_id_card = #{record.userIdCard,jdbcType=VARCHAR},
+      user_avatar = #{record.userAvatar,jdbcType=VARCHAR},
+      salt = #{record.salt,jdbcType=VARCHAR},
+      dncnet = #{record.dncnet,jdbcType=INTEGER},
+      org_tree_id = #{record.orgTreeId,jdbcType=INTEGER},
+      org_tree_name = #{record.orgTreeName,jdbcType=VARCHAR},
+      area_id = #{record.areaId,jdbcType=INTEGER},
+      employee_id = #{record.employeeId,jdbcType=VARCHAR},
+      login_name = #{record.loginName,jdbcType=VARCHAR},
+      login_password = #{record.loginPassword,jdbcType=VARCHAR},
+      error_times = #{record.errorTimes,jdbcType=INTEGER},
+      loginerror_times = #{record.loginerrorTimes,jdbcType=INTEGER},
+      sorts = #{record.sorts,jdbcType=INTEGER},
+      is_different_ip_login = #{record.isDifferentIpLogin,jdbcType=VARCHAR},
+      last_login_time = #{record.lastLoginTime,jdbcType=TIMESTAMP},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      last_modified = #{record.lastModified,jdbcType=TIMESTAMP},
+      comment = #{record.comment,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="top.imwork.entity.SysUser">
+    update sys_user
+    <set>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userNameSpell != null">
+        user_name_spell = #{userNameSpell,jdbcType=VARCHAR},
+      </if>
+      <if test="userAddress != null">
+        user_address = #{userAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="userDesc != null">
+        user_desc = #{userDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="userEmail != null">
+        user_email = #{userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="userMobilPhone != null">
+        user_mobil_phone = #{userMobilPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="userType != null">
+        user_type = #{userType,jdbcType=INTEGER},
+      </if>
+      <if test="userStatus != null">
+        user_status = #{userStatus,jdbcType=INTEGER},
+      </if>
+      <if test="userIdCard != null">
+        user_id_card = #{userIdCard,jdbcType=VARCHAR},
+      </if>
+      <if test="userAvatar != null">
+        user_avatar = #{userAvatar,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null">
+        salt = #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="dncnet != null">
+        dncnet = #{dncnet,jdbcType=INTEGER},
+      </if>
+      <if test="orgTreeId != null">
+        org_tree_id = #{orgTreeId,jdbcType=INTEGER},
+      </if>
+      <if test="orgTreeName != null">
+        org_tree_name = #{orgTreeName,jdbcType=VARCHAR},
+      </if>
+      <if test="areaId != null">
+        area_id = #{areaId,jdbcType=INTEGER},
+      </if>
+      <if test="employeeId != null">
+        employee_id = #{employeeId,jdbcType=VARCHAR},
+      </if>
+      <if test="loginName != null">
+        login_name = #{loginName,jdbcType=VARCHAR},
+      </if>
+      <if test="loginPassword != null">
+        login_password = #{loginPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="errorTimes != null">
+        error_times = #{errorTimes,jdbcType=INTEGER},
+      </if>
+      <if test="loginerrorTimes != null">
+        loginerror_times = #{loginerrorTimes,jdbcType=INTEGER},
+      </if>
+      <if test="sorts != null">
+        sorts = #{sorts,jdbcType=INTEGER},
+      </if>
+      <if test="isDifferentIpLogin != null">
+        is_different_ip_login = #{isDifferentIpLogin,jdbcType=VARCHAR},
+      </if>
+      <if test="lastLoginTime != null">
+        last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModified != null">
+        last_modified = #{lastModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="comment != null">
+        comment = #{comment,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="top.imwork.entity.SysUser">
+    update sys_user
+    set user_name = #{userName,jdbcType=VARCHAR},
+      user_name_spell = #{userNameSpell,jdbcType=VARCHAR},
+      user_address = #{userAddress,jdbcType=VARCHAR},
+      user_desc = #{userDesc,jdbcType=VARCHAR},
+      user_email = #{userEmail,jdbcType=VARCHAR},
+      user_mobil_phone = #{userMobilPhone,jdbcType=VARCHAR},
+      user_type = #{userType,jdbcType=INTEGER},
+      user_status = #{userStatus,jdbcType=INTEGER},
+      user_id_card = #{userIdCard,jdbcType=VARCHAR},
+      user_avatar = #{userAvatar,jdbcType=VARCHAR},
+      salt = #{salt,jdbcType=VARCHAR},
+      dncnet = #{dncnet,jdbcType=INTEGER},
+      org_tree_id = #{orgTreeId,jdbcType=INTEGER},
+      org_tree_name = #{orgTreeName,jdbcType=VARCHAR},
+      area_id = #{areaId,jdbcType=INTEGER},
+      employee_id = #{employeeId,jdbcType=VARCHAR},
+      login_name = #{loginName,jdbcType=VARCHAR},
+      login_password = #{loginPassword,jdbcType=VARCHAR},
+      error_times = #{errorTimes,jdbcType=INTEGER},
+      loginerror_times = #{loginerrorTimes,jdbcType=INTEGER},
+      sorts = #{sorts,jdbcType=INTEGER},
+      is_different_ip_login = #{isDifferentIpLogin,jdbcType=VARCHAR},
+      last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      last_modified = #{lastModified,jdbcType=TIMESTAMP},
+      comment = #{comment,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
